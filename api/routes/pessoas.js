@@ -6,14 +6,13 @@ const PessoaModel = mongoose.model('Pessoa');
 router.get('/', async (req, res, next) => {
     try {
         const pessoas = await PessoaModel.find()
-        .select("nome sobrenome telefone email status _id");
+        .select("nome sobrenome email status _id");
         res.status(200).json({
             count: pessoas.length,
             pessoas: pessoas.map(pessoa => {
                 return {
                     nome: pessoa.nome,
                     sobrenome: pessoa.sobrenome,
-                    telefone: pessoa.telefone,
                     email: pessoa.email,
                     status: pessoa.status,
                     _id: pessoa._id,
@@ -109,7 +108,6 @@ router.patch('/:pessoaId', async (req, res, next) => {
     }
 
 })
-
 
 router.delete('/:pessoaId', async (req, res, next) => {
     const id = req.params.pessoaId;

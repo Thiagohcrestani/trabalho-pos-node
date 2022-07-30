@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 
 mongoose.connect(process.env.MONGODB_URI,
@@ -22,7 +23,9 @@ const app = express();
 const enderecosRoutes = require('./api/routes/enderecos');
 const pessoasRoutes = require('./api/routes/pessoas');
 
-
+app.use(morgan('dev'));
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use('/enderecos', enderecosRoutes);
 app.use('/pessoas', pessoasRoutes);
 app.use(morgan('dev'));
